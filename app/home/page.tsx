@@ -1,6 +1,6 @@
 "use client"
 
-//import { useEffect } from "react"
+import { useEffect } from "react"
 import CustomButtonMain from "../_components/CustomButtonMain"
 
 export default function Home() {
@@ -8,9 +8,8 @@ export default function Home() {
 		console.log("WHY")
 	}
 
-	/*
 	useEffect(() => {
-		//test()
+		test()
 	})
 
 	async function test() {
@@ -19,7 +18,6 @@ export default function Home() {
 
 		console.log(data)
 	}
-		*/
 
 	return (
 		<div>
