@@ -14,3 +14,8 @@ export interface CustomUser {
 	password: string
 	cart: Array<number>
 }
+
+export interface Review {
+	username: string
+	review: string
+}
