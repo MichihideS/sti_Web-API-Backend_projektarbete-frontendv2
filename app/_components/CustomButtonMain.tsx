@@ -1,3 +1,4 @@
+// Custom button with a void function
 export default function CustomButtonMain({
 	title,
 	myFunction,
