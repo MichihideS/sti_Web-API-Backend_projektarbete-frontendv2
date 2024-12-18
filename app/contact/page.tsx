@@ -1,3 +1,4 @@
+"use client"
 import LeftSideMenu from "../_components/LeftSideMenu"
 import MainTitle from "../_components/MainTitle"
 

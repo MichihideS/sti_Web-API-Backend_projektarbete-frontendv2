@@ -4,16 +4,20 @@ import Link from "next/link"
 export default function CustomButtonNavigation({
 	title,
 	navigation,
+	func,
+	bgcolor,
 }: {
 	title: string
 	navigation: string
+	func: () => void
+	bgcolor: string
 }) {
 	return (
 		<Link href={navigation}>
 			<button
-				className="
+				onClick={func}
+				className={`
 			p-4 
-			bg-yellow-200 
 			bg-opacity-20 
 			font-bold 
 			hover:bg-yellow-950 
@@ -24,7 +28,8 @@ export default function CustomButtonNavigation({
 			border-solid 
 			border-white
 			border-opacity-30
-			"
+			${bgcolor}
+			`}
 			>
 				{title}
 			</button>

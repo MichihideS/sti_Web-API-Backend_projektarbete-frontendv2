@@ -4,7 +4,13 @@ export interface CustomUserForm {
 	repeatPassword: string
 }
 
+export interface CustomUserFormLogin {
+	username: string
+	password: string
+}
+
 export interface CustomUser {
 	username: string
 	password: string
+	cart: Array<number>
 }

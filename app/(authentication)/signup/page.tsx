@@ -1,5 +1,4 @@
 "use client"
-
 import { CustomUser, CustomUserForm } from "@/app/_type/ICustomUser"
 import { ChangeEvent, FormEvent, useState } from "react"
 
@@ -21,6 +20,7 @@ export default function SignUp() {
 		const newUser: CustomUser = {
 			username: customUser.username,
 			password: customUser.password,
+			cart: [],
 		}
 
 		// POST
