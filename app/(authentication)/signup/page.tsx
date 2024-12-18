@@ -20,7 +20,7 @@ export default function SignUp() {
 		const newUser: CustomUser = {
 			username: customUser.username,
 			password: customUser.password,
-			cart: [],
+			cart: [0, 0, 0, 0, 0, 0, 0, 0],
 		}
 
 		// POST

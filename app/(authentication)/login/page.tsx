@@ -1,5 +1,6 @@
 "use client"
 import CustomButtonMain from "@/app/_components/CustomButtonMain"
+import CustomButtonNavigation from "@/app/_components/CustomButtonNavigation"
 import LeftSideMenu from "@/app/_components/LeftSideMenu"
 import MainTitle from "@/app/_components/MainTitle"
 import RightSideReview from "@/app/_components/RightSideReview"
@@ -78,15 +79,19 @@ export default function Login() {
 							onChange={(event) => handleChange(event)}
 						/>
 
-						<p className="text-red-600">
-							{errorText}
-							{user}
-						</p>
+						<p className="text-red-600">{errorText}</p>
 
 						<CustomButtonMain
 							title="Login"
 							myFunction={getUser}
 						></CustomButtonMain>
+
+						<CustomButtonNavigation
+							title="Sign Up"
+							navigation="/signup"
+							func={() => {}}
+							bgcolor="bg-yellow-200"
+						></CustomButtonNavigation>
 					</div>
 				) : (
 					<div className="flex flex-col bg-gray-800 justify-center items-center">
@@ -96,7 +101,7 @@ export default function Login() {
 						></CustomButtonMain>
 					</div>
 				)}
-				<div className="mt-72">
+				<div className="">
 					<RightSideReview />
 				</div>
 			</div>
