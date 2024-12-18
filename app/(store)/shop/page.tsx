@@ -1,45 +1,14 @@
-import CustomButtonNavigation from "@/app/_components/CustomButtonNavigation"
+import LeftSideMenu from "@/app/_components/LeftSideMenu"
+import MainTitle from "@/app/_components/MainTitle"
 
 export default function Shop() {
 	return (
-		<div className="h-screen flex justify-start items-center bg-gray-800">
-			<div className="flex flex-col gap-3 px-14">
-				<CustomButtonNavigation
-					title={"Home"}
-					navigation={"/home"}
-				></CustomButtonNavigation>
-
-				<CustomButtonNavigation
-					title={"Login"}
-					navigation={"/login"}
-				></CustomButtonNavigation>
-
-				<button
-					className="
-            p-4 
-          bg-green-600
-          bg-opacity-20 
-          font-bold 
-          min-w-40 
-          rounded-sm
-          border-2
-          border-solid 
-          border-white
-          border-opacity-30
-          "
-				>
-					Shop
-				</button>
-
-				<CustomButtonNavigation
-					title={"Your Cart"}
-					navigation={"/customer-cart"}
-				></CustomButtonNavigation>
-
-				<CustomButtonNavigation
-					title={"Contact Us"}
-					navigation={"/contact"}
-				></CustomButtonNavigation>
+		<div className="h-screen flex flex-col bg-gray-800">
+			<div className="flex justify-center">
+				<MainTitle />
+			</div>
+			<div className="flex flex-row flex-grow items-center">
+				<LeftSideMenu />
 			</div>
 		</div>
 	)
