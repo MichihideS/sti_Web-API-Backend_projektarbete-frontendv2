@@ -1,4 +1,4 @@
-// Custom button with a void function
+// Custom button with a void function and some styling
 export default function CustomButtonMain({
 	title,
 	myFunction,

@@ -2,6 +2,7 @@
 import LeftSideMenu from "../_components/LeftSideMenu"
 import MainTitle from "../_components/MainTitle"
 
+// Contact page
 export default function Contact() {
 	return (
 		<div className="h-screen flex flex-col bg-gray-800">

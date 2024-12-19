@@ -1,3 +1,4 @@
+// A component for the main header of the site with some styling
 export default function MainTitle() {
 	return (
 		<div className="flex flex-col justify-center items-center">
@@ -18,7 +19,7 @@ export default function MainTitle() {
 			<div
 				className="
 			    text-3xl
-    rounded-sm
+    	rounded-sm
 		border-2
 		border-solid 
 	border-white

@@ -8,6 +8,7 @@ import { CustomUserFormLogin } from "@/app/_type/ICustomUser"
 import useClientStore from "@/app/store"
 import { ChangeEvent, useState } from "react"
 
+// Login page
 export default function Login() {
 	const [customUser, setCustomUser] = useState<CustomUserFormLogin>({
 		username: "",
@@ -17,6 +18,10 @@ export default function Login() {
 	const [errorText, setErrorText] = useState<string>("")
 	const { user, updateUser } = useClientStore()
 
+	/** Function to GET the user from the database and do an
+	 *	unconventional login with a user that is NOT bcrypted for testing purposes
+	 * 	since JWT is not implemented
+	 */
 	async function getUser() {
 		const response = await fetch("http://localhost:8080/api/v1/user")
 		const data = await response.json()
@@ -38,10 +43,12 @@ export default function Login() {
 		}
 	}
 
+	// "Logs out" globally with the global state variable
 	function removeUser() {
 		updateUser("")
 	}
 
+	// Handles the changes in state when you try to login
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		setCustomUser((prevState) => ({
 			...prevState,
@@ -101,7 +108,7 @@ export default function Login() {
 						></CustomButtonMain>
 					</div>
 				)}
-				<div className="pb-10">
+				<div className="">
 					<RightSideReview />
 				</div>
 			</div>

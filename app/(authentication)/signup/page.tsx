@@ -2,6 +2,7 @@
 import { CustomUser, CustomUserForm } from "@/app/_type/ICustomUser"
 import { ChangeEvent, FormEvent, useState } from "react"
 
+// SignUp Page for creating new user
 export default function SignUp() {
 	const [customUser, setCustomUser] = useState<CustomUserForm>({
 		username: "",
@@ -10,8 +11,11 @@ export default function SignUp() {
 	})
 
 	const [errorText, setErrorText] = useState<string>("")
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 
+	/** Function that handles the creating of account process.
+	 *	Since these accounts are bcrypted they cannot be access via login in this
+	 *	project since it doesn't use JTW
+	 */
 	async function handleOnSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault() // Prevent reload of page
 
@@ -19,8 +23,6 @@ export default function SignUp() {
 			const checkNewUser = await getUser()
 
 			if (checkNewUser) {
-				setIsLoading(true)
-
 				// Exclude repeat password
 				const newUser: CustomUser = {
 					username: customUser.username,
@@ -45,16 +47,15 @@ export default function SignUp() {
 					const resultError = await result.json()
 					console.error(resultError)
 				}
-
-				setIsLoading(false)
 			} else {
 				setErrorText("User already exists")
 			}
 		} else {
-			setErrorText("Noob try again")
+			setErrorText("Wrong, try again!")
 		}
 	}
 
+	// Function that checks if the user already exists in the database
 	async function getUser(): Promise<boolean> {
 		const response = await fetch("http://localhost:8080/api/v1/user")
 		const data = await response.json()
@@ -69,6 +70,7 @@ export default function SignUp() {
 		return isNewUser
 	}
 
+	// Handles the changes in state when you try to sign up
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
 		setCustomUser((prevState) => ({
 			...prevState,
@@ -113,22 +115,13 @@ export default function SignUp() {
 					onChange={(event) => handleChange(event)}
 				/>
 
-				{/* FIELD ERRORS */}
-				<p></p>
-
 				<p className="text-red-600">{errorText}</p>
 
 				<button
 					className="bg-blue-600 p-4 rounded-md hover:bg-blue-500"
 					type="submit"
-					disabled={isLoading}
 				>
-					Sign Up{" "}
-					{isLoading ? (
-						<span className="inline-block animate-spin">↻</span>
-					) : (
-						""
-					)}
+					Sign Up
 				</button>
 			</form>
 		</div>

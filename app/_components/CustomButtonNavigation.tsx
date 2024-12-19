@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-// Custom button for navigation
+// Custom button for navigation with some styling
 export default function CustomButtonNavigation({
 	title,
 	navigation,

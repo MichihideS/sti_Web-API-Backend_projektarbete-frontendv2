@@ -30,7 +30,7 @@ export default function ShopItems({
 				alt={title}
 				width={60}
 				height={60}
-				className="object-cover mt-2"
+				className="object-cover mt-2 rounded-sm"
 			></Image>
 			<button
 				onClick={myFunction}

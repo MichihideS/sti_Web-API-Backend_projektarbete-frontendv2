@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { Review } from "../_type/ICustomUser"
 import useClientStore from "../store"
 
+// The right side menu that contains the review columns and is connected to the postgres DB
 export default function RightSideReview() {
 	useEffect(() => {
 		getReviews()
@@ -15,8 +16,6 @@ export default function RightSideReview() {
 		username: "",
 		review: "",
 	})
-
-	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	/**
 	 * Async Function that retrieves all the reviews from the database with corresponding user.
@@ -51,7 +50,7 @@ export default function RightSideReview() {
 			reviewSpan.className = "text-gray-700 text-xs"
 
 			paragraph.appendChild(usernameSpan)
-			paragraph.appendChild(document.createTextNode(" ")) // Add space between the spans
+			paragraph.appendChild(document.createTextNode(" "))
 			paragraph.appendChild(reviewSpan)
 			paragraph.className = "my-2 p-1 bg-gray-100 rounded-lg shadow-md"
 
@@ -61,12 +60,14 @@ export default function RightSideReview() {
 		}
 	}
 
+	/**
+	 *	Function handles the submit form when you want to enter a new review with a POST
+	 *	connection to the database
+	 */
 	async function handleOnSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault() // Prevent reload of page
+
 		if (review.review !== "") {
-			event.preventDefault() // Prevent reload of page
-
-			setIsLoading(true)
-
 			let anonymousOrUser: string = ""
 
 			if (user === "") {
@@ -89,19 +90,19 @@ export default function RightSideReview() {
 				body: JSON.stringify(newReview),
 			})
 
+			setReview({ username: "", review: "" })
+
 			// 200 ok
 			if (result.ok) {
 				const data = await result.json()
 				console.log(data)
+				setErrorText("")
 			} else {
 				const resultError = await result.json()
 				console.error(resultError)
 			}
-
-			setIsLoading(false)
 		} else {
-			event.preventDefault()
-			setErrorText("Noob try again")
+			setErrorText("Wrong, try again!")
 		}
 	}
 
@@ -122,14 +123,15 @@ export default function RightSideReview() {
 	border-white
 		border-opacity-10  
     p-1 
-
     "
 			>
 				Comments & Reviews
 			</p>
+			{/* Container for the reviews */}
 			<div id="review-container" className="max-h-80 overflow-y-auto"></div>
 			<p className="text-red-600">{errorText}</p>
 			<form className="flex flex-col" onSubmit={handleOnSubmit} method="post">
+				{/* Submit Button */}
 				<button
 					className="
           p-4 
@@ -146,17 +148,11 @@ export default function RightSideReview() {
           bg-yellow-200
           "
 					type="submit"
-					disabled={isLoading}
 				>
-					Submit{" "}
-					{isLoading ? (
-						<span className="inline-block animate-spin">↻</span>
-					) : (
-						""
-					)}
+					Submit
 				</button>
 
-				{/* Review */}
+				{/* Review Input*/}
 				<label htmlFor="review">Review</label>
 				<input
 					className="text-black"

@@ -1,6 +1,7 @@
 import CustomButtonNavigation from "./CustomButtonNavigation"
 import useClientStore from "../store"
 
+// The left side menu that contains all navigation on the website
 export default function LeftSideMenu() {
 	const { user, updateUser } = useClientStore()
 	let stateUser: string = ""
@@ -39,6 +40,7 @@ export default function LeftSideMenu() {
 				bgcolor="bg-yellow-200"
 			></CustomButtonNavigation>
 
+			{/* Checks if the user is logged in or not and changes the button depending on the conditon */}
 			<CustomButtonNavigation
 				title={stateUser}
 				navigation={loginLogout}
@@ -46,6 +48,7 @@ export default function LeftSideMenu() {
 				bgcolor="bg-yellow-200"
 			></CustomButtonNavigation>
 
+			{/* Disables the button if a user is not logged in */}
 			<CustomButtonNavigation
 				title={"Shop"}
 				navigation={loginShopNavigate}
@@ -53,6 +56,7 @@ export default function LeftSideMenu() {
 				bgcolor={loginShopOrCart}
 			></CustomButtonNavigation>
 
+			{/* Disables the button if a user is not logged in */}
 			<CustomButtonNavigation
 				title={"Your Cart"}
 				navigation={loginCartNavigate}

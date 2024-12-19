@@ -4,8 +4,82 @@ import MainTitle from "@/app/_components/MainTitle"
 import RightSideReview from "@/app/_components/RightSideReview"
 import ShopItems from "@/app/_components/ShopItems"
 import flying_cucumber from "@/app/_images/flying_cucumber.png"
+import { CustomUser } from "@/app/_type/ICustomUser"
+import useClientStore from "@/app/store"
+import { useEffect, useState } from "react"
 
+// The Shopping page, which can only be accessed when you are login
 export default function Shop() {
+	const [cartBody, setCartBody] = useState<Array<number>>([])
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const { user, updateUser } = useClientStore()
+	const [index, setIndex] = useState<number | null>(null)
+	const [currentUser, setCurrentUser] = useState<CustomUser | undefined>(
+		undefined
+	)
+	const [currentId, setCurrentId] = useState<number>(0)
+
+	// Function that retrieves the body of the user with a GET so we can get the id of the user
+	async function getUserByUsername(index: number) {
+		const response = await fetch(`http://localhost:8080/api/v1/user/${user}`)
+		const data = await response.json()
+
+		setCurrentUser(data)
+		setCurrentId(data.id)
+		setCartBody(data.cart)
+		setIndex(index)
+	}
+
+	// Function that updates the array of items a customer has with help of ID and a PUT request
+	async function updateArrayDatabase() {
+		const currentUserNotUpdated: CustomUser = {
+			username: currentUser?.username,
+			password: currentUser?.password,
+			cart: cartBody,
+		}
+
+		const result = await fetch(
+			`http://localhost:8080/api/v1/user?id=${currentId}`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(currentUserNotUpdated),
+			}
+		)
+
+		if (result.ok) {
+			const data = await result.text()
+			console.log(data)
+		} else {
+			const resultError = await result.text()
+			console.error(resultError)
+		}
+	}
+
+	// Function that updates the array locally before updating it in the database
+	function updateArray(index: number) {
+		const newCart = cartBody
+		newCart[index] += 1
+		setIndex(null)
+		setCartBody(newCart)
+	}
+
+	// Checks the index and updates the array when it finds one
+	useEffect(() => {
+		if (index !== null) {
+			updateArray(index)
+		}
+	}, [index])
+
+	// Checks if the array is updated and calls the DB update function
+	useEffect(() => {
+		if (cartBody.length > 2) {
+			updateArrayDatabase()
+		}
+	}, [cartBody])
+
 	return (
 		<div className="h-screen flex flex-col justify-between bg-gray-800">
 			<div className="flex justify-center items-start">
@@ -17,17 +91,17 @@ export default function Shop() {
 					<div className="flex flex-row">
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(0)}
 							image={flying_cucumber}
 						/>
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(1)}
 							image={flying_cucumber}
 						/>
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(2)}
 							image={flying_cucumber}
 						/>
 					</div>
@@ -35,17 +109,17 @@ export default function Shop() {
 					<div className="flex flex-row">
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(3)}
 							image={flying_cucumber}
 						/>
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(4)}
 							image={flying_cucumber}
 						/>
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(5)}
 							image={flying_cucumber}
 						/>
 					</div>
@@ -53,12 +127,12 @@ export default function Shop() {
 					<div className="flex flex-row justify-center items-center">
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(6)}
 							image={flying_cucumber}
 						/>
 						<ShopItems
 							title="Flying Cucumber"
-							myFunction={() => {}}
+							myFunction={() => getUserByUsername(7)}
 							image={flying_cucumber}
 						/>
 					</div>
