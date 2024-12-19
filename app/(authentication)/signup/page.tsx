@@ -1,4 +1,7 @@
 "use client"
+import LeftSideMenu from "@/app/_components/LeftSideMenu"
+import MainTitle from "@/app/_components/MainTitle"
+import RightSideReview from "@/app/_components/RightSideReview"
 import { CustomUser, CustomUserForm } from "@/app/_type/ICustomUser"
 import { ChangeEvent, FormEvent, useState } from "react"
 
@@ -11,6 +14,7 @@ export default function SignUp() {
 	})
 
 	const [errorText, setErrorText] = useState<string>("")
+	const [errorTextColor, setErrorTextColor] = useState<string>("")
 
 	/** Function that handles the creating of account process.
 	 *	Since these accounts are bcrypted they cannot be access via login in this
@@ -22,7 +26,11 @@ export default function SignUp() {
 		if (customUser.password === customUser.repeatPassword) {
 			const checkNewUser = await getUser()
 
-			if (checkNewUser) {
+			if (
+				checkNewUser &&
+				customUser.username.length > 1 &&
+				customUser.password.length > 6
+			) {
 				// Exclude repeat password
 				const newUser: CustomUser = {
 					username: customUser.username,
@@ -38,6 +46,8 @@ export default function SignUp() {
 					},
 					body: JSON.stringify(newUser),
 				})
+				setErrorTextColor("text-green-600")
+				setErrorText("User Successfully Created!")
 
 				// 200 ok
 				if (result.ok) {
@@ -48,9 +58,11 @@ export default function SignUp() {
 					console.error(resultError)
 				}
 			} else {
-				setErrorText("User already exists")
+				setErrorTextColor("text-red-600")
+				setErrorText("Wrong, try again!")
 			}
 		} else {
+			setErrorTextColor("text-red-600")
 			setErrorText("Wrong, try again!")
 		}
 	}
@@ -79,51 +91,71 @@ export default function SignUp() {
 	}
 
 	return (
-		<div className="h-screen flex flex-col justify-center items-center bg-slate-800">
-			<form
-				onSubmit={handleOnSubmit}
-				method="post"
-				className="flex flex-col max-w-sm gap-4"
-			>
-				{/* Username */}
-				<label htmlFor="username">Username</label>
-				<input
-					className="text-black"
-					type="text"
-					name="username"
-					value={customUser.username}
-					onChange={(event) => handleChange(event)}
-				/>
-
-				{/* Password */}
-				<label htmlFor="password">Password</label>
-				<input
-					className="text-black"
-					type="password"
-					name="password"
-					value={customUser.password}
-					onChange={(event) => handleChange(event)}
-				/>
-
-				{/* Repeat Password */}
-				<label htmlFor="repeatPassword">Confirm Password</label>
-				<input
-					className="text-black"
-					type="password"
-					name="repeatPassword"
-					value={customUser.repeatPassword}
-					onChange={(event) => handleChange(event)}
-				/>
-
-				<p className="text-red-600">{errorText}</p>
-
-				<button
-					className="bg-blue-600 p-4 rounded-md hover:bg-blue-500"
-					type="submit"
+		<div className="h-screen flex flex-col justify-between bg-gray-800">
+			<div className="flex justify-center items-center">
+				<MainTitle />
+			</div>
+			<div className="flex justify-between items-center mb-10">
+				<LeftSideMenu />
+				<form
+					onSubmit={handleOnSubmit}
+					method="post"
+					className="flex flex-col max-w-sm gap-3 justify-center items-center"
 				>
-					Sign Up
-				</button>
-			</form>
+					{/* Username */}
+					<label htmlFor="username">Username</label>
+					<input
+						className="text-black"
+						type="text"
+						name="username"
+						value={customUser.username}
+						onChange={(event) => handleChange(event)}
+					/>
+
+					{/* Password */}
+					<label htmlFor="password">Password</label>
+					<input
+						className="text-black"
+						type="password"
+						name="password"
+						value={customUser.password}
+						onChange={(event) => handleChange(event)}
+					/>
+
+					{/* Repeat Password */}
+					<label htmlFor="repeatPassword">Confirm Password</label>
+					<input
+						className="text-black"
+						type="password"
+						name="repeatPassword"
+						value={customUser.repeatPassword}
+						onChange={(event) => handleChange(event)}
+					/>
+
+					<p className={errorTextColor}>{errorText}</p>
+
+					<button
+						className="p-4 
+						bg-opacity-20 
+						font-bold 
+					hover:bg-yellow-950 
+						hover:opacity-30
+						w-52
+						rounded-sm
+						border-2
+						border-solid 
+					border-white
+						border-opacity-30
+					bg-yellow-200"
+						type="submit"
+					>
+						Sign Up
+					</button>
+				</form>
+				<div className="">
+					<RightSideReview />
+				</div>
+			</div>
 		</div>
 	)
 }

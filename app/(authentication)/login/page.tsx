@@ -103,6 +103,26 @@ export default function Login() {
 					</div>
 				) : (
 					<div className="flex flex-col bg-gray-800 justify-center items-center">
+						<div className="flex flex-col justify-center items-center">
+							<div
+								className="
+								flex
+								flex-col
+								justify-center
+								items-center			
+								p-8
+								w-96
+								rounded-sm
+								border-2
+								border-solid 
+							border-white
+								border-opacity-30
+								mb-10
+								"
+							>
+								<p className="p-1 text-2xl">You are logged in!</p>
+							</div>
+						</div>
 						<CustomButtonMain
 							title="Logout"
 							myFunction={removeUser}
