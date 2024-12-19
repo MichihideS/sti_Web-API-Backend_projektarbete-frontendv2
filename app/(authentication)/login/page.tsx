@@ -39,7 +39,7 @@ export default function Login() {
 		}
 
 		if (user === "") {
-			setErrorText("Noob try again")
+			setErrorText("Wrong, try again!")
 		}
 	}
 
@@ -61,15 +61,15 @@ export default function Login() {
 			<div className="flex justify-center items-start">
 				<MainTitle />
 			</div>
-			<div className="flex justify-between items-center mb-36">
+			<div className="flex justify-between items-center mb-10">
 				<LeftSideMenu />
 
 				{user === "" ? (
-					<div className="flex flex-col justify-center items-center mb-28">
+					<div className="flex flex-col justify-center items-center mb-10">
 						{/* Username */}
 						<label htmlFor="username">Username</label>
 						<input
-							className="text-black"
+							className="text-black mb-2"
 							type="text"
 							name="username"
 							value={customUser.username}
@@ -87,18 +87,19 @@ export default function Login() {
 						/>
 
 						<p className="text-red-600">{errorText}</p>
+						<div className="flex flex-col gap-3 m-1 p-4">
+							<CustomButtonMain
+								title="Login"
+								myFunction={getUser}
+							></CustomButtonMain>
 
-						<CustomButtonMain
-							title="Login"
-							myFunction={getUser}
-						></CustomButtonMain>
-
-						<CustomButtonNavigation
-							title="Sign Up"
-							navigation="/signup"
-							func={() => {}}
-							bgcolor="bg-yellow-200"
-						></CustomButtonNavigation>
+							<CustomButtonNavigation
+								title="Sign Up"
+								navigation="/signup"
+								func={() => {}}
+								bgcolor="bg-yellow-200"
+							></CustomButtonNavigation>
+						</div>
 					</div>
 				) : (
 					<div className="flex flex-col bg-gray-800 justify-center items-center">
