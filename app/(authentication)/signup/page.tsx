@@ -9,39 +9,64 @@ export default function SignUp() {
 		repeatPassword: "",
 	})
 
+	const [errorText, setErrorText] = useState<string>("")
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	async function handleOnSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault() // Prevent reload of page
 
-		setIsLoading(true)
+		if (customUser.password === customUser.repeatPassword) {
+			const checkNewUser = await getUser()
 
-		// Exclude repeat password
-		const newUser: CustomUser = {
-			username: customUser.username,
-			password: customUser.password,
-			cart: [0, 0, 0, 0, 0, 0, 0, 0],
-		}
+			if (checkNewUser) {
+				setIsLoading(true)
 
-		// POST
-		const result = await fetch("http://localhost:8080/api/v1/user", {
-			method: "POST",
-			headers: {
-				"content-type": "application/json;charset=UTF-8",
-			},
-			body: JSON.stringify(newUser),
-		})
+				// Exclude repeat password
+				const newUser: CustomUser = {
+					username: customUser.username,
+					password: customUser.password,
+					cart: [0, 0, 0, 0, 0, 0, 0, 0],
+				}
 
-		// 200 ok
-		if (result.ok) {
-			const data = await result.json()
-			console.log(data)
+				// POST
+				const result = await fetch("http://localhost:8080/api/v1/user", {
+					method: "POST",
+					headers: {
+						"content-type": "application/json;charset=UTF-8",
+					},
+					body: JSON.stringify(newUser),
+				})
+
+				// 200 ok
+				if (result.ok) {
+					const data = await result.json()
+					console.log(data)
+				} else {
+					const resultError = await result.json()
+					console.error(resultError)
+				}
+
+				setIsLoading(false)
+			} else {
+				setErrorText("User already exists")
+			}
 		} else {
-			const resultError = await result.json()
-			console.error(resultError)
+			setErrorText("Noob try again")
+		}
+	}
+
+	async function getUser(): Promise<boolean> {
+		const response = await fetch("http://localhost:8080/api/v1/user")
+		const data = await response.json()
+		let isNewUser: boolean = true
+
+		for (let i = 0; i < data.length; i++) {
+			if (customUser.username === data[i].username) {
+				isNewUser = false
+			}
 		}
 
-		setIsLoading(false)
+		return isNewUser
 	}
 
 	function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -90,6 +115,8 @@ export default function SignUp() {
 
 				{/* FIELD ERRORS */}
 				<p></p>
+
+				<p className="text-red-600">{errorText}</p>
 
 				<button
 					className="bg-blue-600 p-4 rounded-md hover:bg-blue-500"

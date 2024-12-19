@@ -101,7 +101,7 @@ export default function Login() {
 						></CustomButtonMain>
 					</div>
 				)}
-				<div className="">
+				<div className="pb-10">
 					<RightSideReview />
 				</div>
 			</div>

@@ -114,13 +114,37 @@ export default function RightSideReview() {
 
 	return (
 		<div className="flex flex-col gap-3 px-14 w-80">
-			<div id="review-container"></div>
+			<p
+				className="flex justify-center items-center    text-lg
+    rounded-sm
+		border-4
+		border-solid 
+	border-white
+		border-opacity-10  
+    p-1 
 
+    "
+			>
+				Comments & Reviews
+			</p>
+			<div id="review-container" className="max-h-80 overflow-y-auto"></div>
 			<p className="text-red-600">{errorText}</p>
-
 			<form className="flex flex-col" onSubmit={handleOnSubmit} method="post">
 				<button
-					className="bg-yellow-200 p-4 rounded-md hover:bg-blue-500"
+					className="
+          p-4 
+          bg-opacity-20 
+          font-bold 
+        hover:bg-yellow-950 
+          hover:opacity-30
+          w-52
+          rounded-sm
+          border-2
+          border-solid 
+        border-white
+          border-opacity-30
+          bg-yellow-200
+          "
 					type="submit"
 					disabled={isLoading}
 				>
