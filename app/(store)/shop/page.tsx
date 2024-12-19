@@ -4,6 +4,13 @@ import MainTitle from "@/app/_components/MainTitle"
 import RightSideReview from "@/app/_components/RightSideReview"
 import ShopItems from "@/app/_components/ShopItems"
 import flying_cucumber from "@/app/_images/flying_cucumber.png"
+import jetpack from "@/app/_images/jetpack.png"
+import lasergun from "@/app/_images/lasergun.png"
+import sattelite from "@/app/_images/sattelite.png"
+import space_cat from "@/app/_images/space_cat.png"
+import space_suit from "@/app/_images/space_suit.png"
+import spaceship from "@/app/_images/spaceship.png"
+import star from "@/app/_images/star.png"
 import { CustomUser } from "@/app/_type/ICustomUser"
 import useClientStore from "@/app/store"
 import { useEffect, useState } from "react"
@@ -95,45 +102,45 @@ export default function Shop() {
 							image={flying_cucumber}
 						/>
 						<ShopItems
-							title="Flying Cucumber"
+							title="Jetpack"
 							myFunction={() => getUserByUsername(1)}
-							image={flying_cucumber}
+							image={jetpack}
 						/>
 						<ShopItems
-							title="Flying Cucumber"
+							title="Lasergun"
 							myFunction={() => getUserByUsername(2)}
-							image={flying_cucumber}
+							image={lasergun}
 						/>
 					</div>
 
 					<div className="flex flex-row">
 						<ShopItems
-							title="Flying Cucumber"
+							title="Sattelite"
 							myFunction={() => getUserByUsername(3)}
-							image={flying_cucumber}
+							image={sattelite}
 						/>
 						<ShopItems
-							title="Flying Cucumber"
+							title="Space Cat"
 							myFunction={() => getUserByUsername(4)}
-							image={flying_cucumber}
+							image={space_cat}
 						/>
 						<ShopItems
-							title="Flying Cucumber"
+							title="Space Suit"
 							myFunction={() => getUserByUsername(5)}
-							image={flying_cucumber}
+							image={space_suit}
 						/>
 					</div>
 
 					<div className="flex flex-row justify-center items-center">
 						<ShopItems
-							title="Flying Cucumber"
+							title="Spaceship"
 							myFunction={() => getUserByUsername(6)}
-							image={flying_cucumber}
+							image={spaceship}
 						/>
 						<ShopItems
-							title="Flying Cucumber"
+							title="Star"
 							myFunction={() => getUserByUsername(7)}
-							image={flying_cucumber}
+							image={star}
 						/>
 					</div>
 				</div>

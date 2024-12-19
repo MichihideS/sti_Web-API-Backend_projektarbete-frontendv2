@@ -19,7 +19,7 @@ export default function MainTitle() {
 			<div
 				className="
 			    text-3xl
-    	rounded-sm
+    rounded-sm
 		border-2
 		border-solid 
 	border-white
@@ -28,7 +28,7 @@ export default function MainTitle() {
     mt-3
 		"
 			>
-				<p>The Shop From The Future</p>
+				<p>The Shop From a Distant Galaxy</p>
 			</div>
 		</div>
 	)
